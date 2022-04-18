@@ -28,6 +28,6 @@ symfony serve -d
 
 ## Lancer des tests 
 `````bash
-php bin/phpunit --testox
+php bin/phpunit --testdox
 `````
 

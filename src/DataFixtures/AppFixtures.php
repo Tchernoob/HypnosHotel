@@ -109,7 +109,7 @@ class AppFixtures extends Fixture
          ->setPrice(800)
          ->setHomeImage('/img/hypton-home-img.jpeg')
          ->setSecondImage('/img/hypnos-penthouse-suite-02.jpg')
-         ->setThirdImage('/img/hypnos-penthouse-suite-03.jpg')
+         ->setThirdImage('/img/hypnos-penthouse-suite-03.jpeg')
          ->setHotel($hotel);
         
          $manager->persist($suit);

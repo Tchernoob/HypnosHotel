@@ -5,3 +5,17 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+index:
+    path: /index
+    controller: App\Controller\HomeController
+
+hotels: 
+    path: /hotels
+    controller: App\Controller\HotelsController
+
+suits_show: 
+    path: /suits/{idHotel}
+    controller: App\Controller\SuitsController::show
+    requirements:
+        idHotel: '\d+'

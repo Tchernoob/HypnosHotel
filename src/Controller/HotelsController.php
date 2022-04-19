@@ -14,7 +14,7 @@ class HotelsController extends AbstractController
     public function index(HotelRepository $hotelRepository): Response
     {
         return $this->render('www-front/hotels/hotels.html.twig', [
-            'hotels' => $hotelRepository->viewHotels(),
+            'hotels' => $hotelRepository->findAll(),
         ]);
     }
 }

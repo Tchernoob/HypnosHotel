@@ -45,17 +45,6 @@ class HotelRepository extends ServiceEntityRepository
         }
     }
 
-    // Modifier la fonction pour récupérer tout les hotels
-    public function viewHotels()
-    {
-        return $this->createQueryBuilder('b')
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(7)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
     // /**
     //  * @return Hotel[] Returns an array of Hotel objects
     //  */

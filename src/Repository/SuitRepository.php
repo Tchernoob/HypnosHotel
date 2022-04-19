@@ -45,6 +45,16 @@ class SuitRepository extends ServiceEntityRepository
         }
     }
 
+    public function lastTree()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Suit[] Returns an array of Suit objects
     //  */

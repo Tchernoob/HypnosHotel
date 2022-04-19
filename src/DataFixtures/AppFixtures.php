@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-    // Création d'un Hotel
+    // Création de 7 Hotels
         $hotel = new Hotel();
 
         $hotel->setName('Hypton')
@@ -62,7 +62,21 @@ class AppFixtures extends Fixture
               ->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                                 Ut feugiat risus at quam posuere, semper venenatis diam condimentum. 
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
-              ->SetHomeImage('/img/hypton-home-img.jpeg');
+              ->SetHomeImage('img/hypton-home-img.jpeg');
+
+        $manager->persist($hotel);
+
+        $manager->flush();
+
+        $hotel = new Hotel();
+
+        $hotel->setName('Claridge')
+              ->setCity('Londres')
+              ->setAdress('Brook Street')
+              ->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Ut feugiat risus at quam posuere, semper venenatis diam condimentum. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
+              ->SetHomeImage('img/claridge.jpeg');
 
         $manager->persist($hotel);
 

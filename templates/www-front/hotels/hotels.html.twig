@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HotelsController!{% endblock %}
+
+{% block body %}
+
+
+<!-- Hotel presentation section-->	
+
+{% for hotel in hotels %}
+    <div class="bg-light py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder mb-2"> {{ hotel.name }} - {{ hotel.city }} </h1>
+                        <h2 class="display-6"> {{ hotel.adress }} </h2>
+                        <p class="lead fw-normal mb-4"> {{ hotel.description|u.truncate(400, '...', false) }}</p>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-xl-block text-center">
+                    <img class="img-fluid rounded-3 my-5" src="{{asset(hotel.homeImage)}}" alt="..." />
+                    <div class="d-grid">
+                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Voir l'Etablissement</a>
+                </div>
+                </div>
+                
+            </div>
+            <hr>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

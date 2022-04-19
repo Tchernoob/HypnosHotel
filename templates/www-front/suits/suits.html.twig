@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suites{% endblock %}
+
+{% block body %}
+
+<!-- Suit presentation section-->	
+
+{% for suit in suits %}
+
+    <!-- Ajouter une nav Bar pour facilité la visite des suites -->
+
+    <!-- Hypnos presentation section-->	
+            <div class="bg-dark py-5">
+                <div class="container px-5">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                                <h1 class="display-5 fw-bolder text-white mb-2"> {{ suit.name }}</h1>
+                                <p class="lead fw-normal text-white-50 mb-4">{{ suit.description|u.truncate(400, '...', false) }}</p>
+                                <table class="table table-dark table-striped">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Prix</th>
+                                        <th scope="col">Nombres de chambres</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ suit.price }} €</td>
+                                            <td>{{ suit.rooms }} Chambres</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                        </div>
+                        <div class="col-xl-10 col-xxl-8 d-md-block d-sm-6 text-center card-height-fix">
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{asset(suit.homeImage)}}" class="d-block w-100" alt="..." style="width:360px;height:360px" >
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{asset(suit.secondImage)}}" class="d-block w-100" alt="..." style="width:360px;height:360px">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{asset(suit.thirdImage)}}" class="d-block w-100" alt="..." style="width:360px;height:360px">
+                                    </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <div class="d-grid gap-2 col-6-md col-12-sm  mx-auto">
+                                    <!-- Changer le path pour la réservavtion -->
+                                    <a class="btn btn-lg btn-primary mt-3" href="{{ path('hotels') }}">Réserver</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endfor %}
+
+
+{% endblock %}

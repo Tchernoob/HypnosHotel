@@ -30,9 +30,6 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $last_name;
 
-    #[ORM\OneToOne(targetEntity: Hotel::class, cascade: ['persist', 'remove'])]
-    private $hotel;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -127,15 +124,4 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getHotel(): ?Hotel
-    {
-        return $this->hotel;
-    }
-
-    public function setHotel(?Hotel $hotel): self
-    {
-        $this->hotel = $hotel;
-
-        return $this;
-    }
 }

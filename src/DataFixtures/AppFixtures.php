@@ -29,7 +29,8 @@ class AppFixtures extends Fixture
 
         $user->setEmail('tpichon@hypnos.com')
              ->setFirstName('Theo')
-             ->setLastName('Pichon');
+             ->setLastName('Pichon')
+             ->setRoles(['ROLE_USER']);
 
         $password = $this->hasher->hashPassword($user, 'password');
         $user->setPassword($password);
@@ -37,22 +38,7 @@ class AppFixtures extends Fixture
         $manager->persist($user);
 
         $manager->flush();
-    
-
-    // Création d'un Administrateur 
-    $adminHypnos = new Administrator();
-
-    $adminHypnos->setEmail('theo.pichon.admin@gmail.com')
-          ->setFirstName('John')
-          ->setLastname('Hypnos');
-        
-        $password = $this->hasher->hashPassword($adminHypnos, 'passwordAdmin');
-        $adminHypnos->setPassword($password);
-        
-        $manager->persist($adminHypnos);
-
-        $manager->flush();
-
+ 
     // Création de 7 Hotels
         $hotel = new Hotel();
 
@@ -82,13 +68,14 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-   // Création d'un Gérant associé à l'Hotel
+   // Création d'un super Admin ayant tout les droits
     $hotelManager = new Manager();
 
     $hotelManager->setEmail('theo.pichon.admin@gmail.com')
                   ->setFirstName('John')
-                  ->setLastname('Hypnos')
-                  ->setHotel($hotel);
+                  ->setLastname('Manager')
+                  ->setHotel($hotel)
+                  ->setRoles(['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
 
         $password = $this->hasher->hashPassword($hotelManager, 'passwordAdmin');
         $hotelManager->setPassword($password);
@@ -96,9 +83,26 @@ class AppFixtures extends Fixture
         $manager->persist($hotelManager);
 
         $manager->flush();
+
+    // Création d'un Manager
+    
+    $hotelManager = new Manager();
+
+        $hotelManager->setEmail('theo.pichon.manager@gmail.com')
+                      ->setFirstName('John')
+                      ->setLastname('Manager')
+                      ->setHotel($hotel)
+                      ->setRoles(['ROLE_ADMIN']);
+    
+            $password = $this->hasher->hashPassword($hotelManager, 'passwordManager');
+            $hotelManager->setPassword($password);
+        
+            $manager->persist($hotelManager);
+    
+            $manager->flush();
         
         
-    // Création d'une suite associée à l'Hotel
+    // Création d'une suite 
     $suit = new Suit();
 
     $suit->setName('Penthouse')

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HotelsController!{% endblock %}
+{% block title %}Hotels{% endblock %}
 
 {% block body %}
 
@@ -15,14 +15,14 @@
                     <div class="my-5 text-center text-xl-start">
                         <h1 class="display-5 fw-bolder mb-2"> {{ hotel.name }} - {{ hotel.city }} </h1>
                         <h2 class="display-6"> {{ hotel.adress }} </h2>
-                        <p class="lead fw-normal mb-4 "> {{ hotel.description|u.truncate(400, '...', false) }}</p>
+                        <p class="lead fw-normal mb-4 "> {{ hotel.description|u.truncate(400, '...', false)|striptags }}</p>
                         
                     </div>
                 </div>
                 <div class="col-xl-5 col-xxl-6 d-xl-block text-center">
-                    <img class="img-fluid rounded-3 my-5" src="{{asset(hotel.homeImage)}}" alt="..." style="width:600px;height:250px" />
+                    <img class="img-fluid rounded-3 my-5" src="upload/images/{{asset(hotel.homeImage)}}" alt="hotel-picture" style="width:600px;height:250px" />
                     <div class="d-grid gap-2 col-6-md col-12-sm  mx-auto">        
-                        <a class="btn btn-lg btn-primary" href="{{ path('hotels') }}">Voir l'Etablissement</a>
+                        <a class="btn btn-lg btn-primary" href="suits/{{hotel.id}}">Voir l'Etablissement</a>
                     </div>
                 </div>
                 

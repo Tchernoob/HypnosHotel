@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ManagerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,8 +32,7 @@ class Manager implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $last_name;
 
-    #[ORM\OneToOne(targetEntity: Hotel::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(inversedBy: 'manager', targetEntity: Hotel::class, cascade: ['persist', 'remove'])]
     private $hotel;
 
     public function getId(): ?int
@@ -67,8 +68,8 @@ class Manager implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_ADMIN
+        $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
     }
@@ -128,12 +129,17 @@ class Manager implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->first_name;
+    }
+
     public function getHotel(): ?Hotel
     {
         return $this->hotel;
     }
 
-    public function setHotel(Hotel $hotel): self
+    public function setHotel(?Hotel $hotel): self
     {
         $this->hotel = $hotel;
 

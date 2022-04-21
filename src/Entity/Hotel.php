@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
+
 class Hotel
 {
     #[ORM\Id]
@@ -30,12 +31,17 @@ class Hotel
     #[ORM\Column(type: 'string', length: 255)]
     private $home_image;
 
+
     #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Suit::class, orphanRemoval: true)]
     private $suits;
+
+    #[ORM\OneToOne(mappedBy: 'hotel', targetEntity: Manager::class, cascade: ['persist', 'remove'])]
+    private $manager;
 
     public function __construct()
     {
         $this->suits = new ArrayCollection();
+        $this->managers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,5 +137,10 @@ class Hotel
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

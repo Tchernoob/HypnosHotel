@@ -2,14 +2,23 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Hotel;
+use App\Entity\Suit;
+use App\Entity\Manager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class DashboardController extends AbstractDashboardController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -39,8 +48,40 @@ class DashboardController extends AbstractDashboardController
     }
 
     public function configureMenuItems(): iterable
-    {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+    {      
+        // Section accessible seulement pour les admistrateurs 
+        yield MenuItem::section('Etablissements', 'fa fa-home')
+            ->setPermission('ROLE_SUPER_ADMIN');
+
+        yield MenuItem::subMenu('Gérez vos Etablissements', 'fas fa-bars')
+                ->setPermission('ROLE_SUPER_ADMIN')
+                ->setSubItems([
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Hotel::class )->setAction(Crud::PAGE_NEW),
+                MenuItem::linkToCrud('Voir', 'fas fa-eye', Hotel::class ),
+        ]);
+
+        // Sous Menu accessible seulement pour les Managers
+        yield MenuItem::section('Suites')
+            ->setPermission('ROLE_ADMIN');
+
+        yield MenuItem::subMenu('Gérez vos Suites', 'fas fa-bars')
+            ->setPermission('ROLE_ADMIN')
+            ->setSubItems([
+            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Suit::class )->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Voir', 'fas fa-eye', Suit::class ),
+        ]);
+
+        yield MenuItem::section('Equipes')
+            ->setPermission('ROLE_SUPER_ADMIN');
+
+        yield MenuItem::subMenu('Gérez vos Managers', 'fas fa-bars')
+        ->setPermission('ROLE_SUPER_ADMIN')
+        ->setSubItems([
+        MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Manager::class )->setAction(Crud::PAGE_NEW),
+        MenuItem::linkToCrud('Voir', 'fas fa-eye', Manager::class ),
+    ]);
+
+        
+
     }
 }

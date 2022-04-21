@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Suit;
+use App\Entity\Hotel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -45,11 +46,12 @@ class SuitRepository extends ServiceEntityRepository
         }
     }
 
-    public function lastTree()
+    public function lastTree($value)
     {
         return $this->createQueryBuilder('b')
+            ->andWhere('b.hotel_id = :val')
+            ->setParameter('val', $value)
             ->orderBy('b.id', 'DESC')
-            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
         ;
